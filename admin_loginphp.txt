@@ -1,0 +1,16 @@
+<?php
+$name = $_GET['name'];
+$password = $_GET['password'];
+
+$conn = new mysqli('localhost', 'root', '', 'm1');
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} else {
+    $stmt = $conn->prepare("INSERT INTO t3 (name, password) VALUES (?, ?)");
+    $stmt->bind_param("ss", $name, $password);
+    $stmt->execute();
+    echo "Data stored successfully";
+    $stmt->close();
+    $conn->close();
+}
+?>
